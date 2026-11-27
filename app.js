@@ -3,8 +3,10 @@ let tareas = JSON.parse(localStorage.getItem("tareas")) || [
 ];
 
 const formTarea = document.getElementById("form-tarea");
+const inputId = document.getElementById("tarea-id");
 const inputTitulo = document.getElementById("titulo");
 const inputDescripcion = document.getElementById("descripcion");
+const btnGuardar = document.getElementById("btn-guardar");
 const listaTareas = document.getElementById("lista-tareas");
 
 function guardarEnStorage() {
@@ -28,18 +30,35 @@ function renderizarTareas() {
   });
 }
 
+function prepararEdicion(id) {
+  const tarea = tareas.find((t) => t.id === id);
+  if (!tarea) return;
+  inputId.value = tarea.id;
+  inputTitulo.value = tarea.titulo;
+  inputDescripcion.value = tarea.descripcion;
+  btnGuardar.textContent = "Actualizar Tarea";
+}
+
 formTarea.addEventListener("submit", (e) => {
   e.preventDefault();
+  const idEdicion = inputId.value;
   const titulo = inputTitulo.value.trim();
   const descripcion = inputDescripcion.value.trim();
 
-  const nuevaTarea = {
-    id: Date.now(),
-    titulo,
-    descripcion
-  };
+  if (idEdicion) {
+    tareas = tareas.map((t) =>
+      t.id === Number(idEdicion) ? { ...t, titulo, descripcion } : t
+    );
+    inputId.value = "";
+    btnGuardar.textContent = "Agregar Tarea";
+  } else {
+    tareas.push({
+      id: Date.now(),
+      titulo,
+      descripcion
+    });
+  }
 
-  tareas.push(nuevaTarea);
   guardarEnStorage();
   renderizarTareas();
   formTarea.reset();
