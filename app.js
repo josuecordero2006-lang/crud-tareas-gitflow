@@ -2,6 +2,9 @@ let tareas = JSON.parse(localStorage.getItem("tareas")) || [
   { id: 1, titulo: "Configurar repositorio", descripcion: "Aplicar Git Flow con 5 ramas" }
 ];
 
+const formTarea = document.getElementById("form-tarea");
+const inputTitulo = document.getElementById("titulo");
+const inputDescripcion = document.getElementById("descripcion");
 const listaTareas = document.getElementById("lista-tareas");
 
 function guardarEnStorage() {
@@ -24,5 +27,22 @@ function renderizarTareas() {
     listaTareas.appendChild(fila);
   });
 }
+
+formTarea.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const titulo = inputTitulo.value.trim();
+  const descripcion = inputDescripcion.value.trim();
+
+  const nuevaTarea = {
+    id: Date.now(),
+    titulo,
+    descripcion
+  };
+
+  tareas.push(nuevaTarea);
+  guardarEnStorage();
+  renderizarTareas();
+  formTarea.reset();
+});
 
 renderizarTareas();
