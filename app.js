@@ -39,6 +39,17 @@ function prepararEdicion(id) {
   btnGuardar.textContent = "Actualizar Tarea";
 }
 
+function eliminarTarea(id) {
+  tareas = tareas.filter((t) => t.id !== id);
+  if (Number(inputId.value) === id) {
+    inputId.value = "";
+    btnGuardar.textContent = "Agregar Tarea";
+    formTarea.reset();
+  }
+  guardarEnStorage();
+  renderizarTareas();
+}
+
 formTarea.addEventListener("submit", (e) => {
   e.preventDefault();
   const idEdicion = inputId.value;
