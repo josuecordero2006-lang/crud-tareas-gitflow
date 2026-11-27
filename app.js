@@ -8,6 +8,15 @@ const inputTitulo = document.getElementById("titulo");
 const inputDescripcion = document.getElementById("descripcion");
 const btnGuardar = document.getElementById("btn-guardar");
 const listaTareas = document.getElementById("lista-tareas");
+const mensajeAlerta = document.getElementById("mensaje-alerta");
+
+function mostrarAlerta(texto) {
+  mensajeAlerta.textContent = texto;
+  mensajeAlerta.classList.remove("oculto");
+  setTimeout(() => {
+    mensajeAlerta.classList.add("oculto");
+  }, 3000);
+}
 
 function guardarEnStorage() {
   localStorage.setItem("tareas", JSON.stringify(tareas));
@@ -55,6 +64,11 @@ formTarea.addEventListener("submit", (e) => {
   const idEdicion = inputId.value;
   const titulo = inputTitulo.value.trim();
   const descripcion = inputDescripcion.value.trim();
+
+  if (!titulo || !descripcion) {
+    mostrarAlerta("Por favor, completa tanto el título como la descripción.");
+    return;
+  }
 
   if (idEdicion) {
     tareas = tareas.map((t) =>
