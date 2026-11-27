@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CRUD de Tareas - Git Flow</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>Gestor de Tareas (CRUD)</h1>
+    <p id="mensaje-alerta" class="alerta oculto"></p>
+
+    <form id="form-tarea">
+      <input type="hidden" id="tarea-id" />
+      <input type="text" id="titulo" placeholder="Título de la tarea" />
+      <input type="text" id="descripcion" placeholder="Descripción" />
+      <button type="submit" id="btn-guardar">Agregar Tarea</button>
+    </form>
+
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Título</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody id="lista-tareas"></tbody>
+    </table>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
